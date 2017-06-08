@@ -25,7 +25,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+------+------+------+------+------|  ]   |           |  +   |------+------+------+------+------+--------|
  * | LShift |   Z  |   X  |   C  |   V  |   B  |  }   |           |  =   |   N  |   M  |  , < |  . > |  / ? | Alfred |
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
- *   |Hyper |  Meh |      | LAlt |Eis/LG|                                       |Kan/RG| Home | End  | PgUp | PgDn |
+ *   |Hyper |  Meh | LAlt | ~L1  |Eis/LG|                                       |Kan/RG| Home | End  | PgUp | PgDn |
  *   `----------------------------------'                                       `----------------------------------'
  *                                      ,--------------.       ,--------------.
  *                                      |  ~L1  |  L1  |       | Left | Right |
@@ -43,7 +43,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TAB,       KC_Q,         KC_W,    KC_E,    KC_R,    KC_T,  KC_LBRC,
         KC_LCTL,      KC_A,         KC_S,    KC_D,    KC_F,    KC_G,
         KC_LSFT,      KC_Z,         KC_X,    KC_C,    KC_V,    KC_B,  KC_RBRC,
-        ALL_T(KC_NO), MEH_T(KC_NO), KC_TRNS, KC_LALT, GUI_T(KC_LANG2),
+        ALL_T(KC_NO), MEH_T(KC_NO), KC_LALT, MO(SYMB), GUI_T(KC_LANG2),
                                                            MO(SYMB), TG(SYMB),
                                                                       KC_TRNS,
                                              SFT_T(KC_ESC), KC_BSPC,  KC_TRNS,
@@ -68,7 +68,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |---------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
  * |         | Brt- | Brt+ |Animat|      |      |      |           |      |      | Play | Prev | Next |      |        |
  * `---------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
- *   | EPRM  | Hue- | Hue+ |Toggle|Solid |                                       |VolUp |VolDn | Mute |      |      |
+ *   | EPRM  | Hue- | Hue+ |      |      |                                       |VolUp |VolDn | Mute |      |      |
  *   `-----------------------------------'                                       `----------------------------------'
  *                                        ,-------------.       ,-------------.
  *                                        |      |      |       |      |      |
@@ -85,7 +85,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        RESET,   KC_TRNS, KC_MS_U, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
        KC_TRNS, KC_MS_L, KC_MS_D, KC_MS_R, KC_BTN1, KC_BTN2,
        KC_TRNS, RGB_VAD, RGB_VAI, RGB_MOD, KC_TRNS, KC_TRNS, KC_TRNS,
-          EPRM, RGB_HUD, RGB_HUI, RGB_TOG, RGB_SLD,
+          EPRM, RGB_HUD, RGB_HUI, KC_TRNS, KC_TRNS,
                                                     KC_TRNS, KC_TRNS,
                                                              KC_TRNS,
                                            KC_TRNS, KC_TRNS, KC_TRNS,
