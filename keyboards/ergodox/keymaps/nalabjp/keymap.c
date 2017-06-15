@@ -31,7 +31,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                      |  ~L1  |  L1  |       | Left | Right |
  *                               ,------|-------|------|       |------+-------+------.
  *                               |      |       |      |       |  Up  |       |      |
- *                               |Esc/  | Back  |------|       |------| Enter |Space/|
+ *                               |Esc/  | Back  |------|       |------| Space |Enter/|
  *                               |Shift | Space |      |       | Down |       |Shift |
  *                               `---------------------'       `---------------------'
  */
@@ -55,7 +55,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
             GUI_T(KC_LANG1), KC_HOME, KC_END, KC_PGUP, KC_PGDN,
         KC_LEFT, KC_RGHT,
         KC_UP,
-        KC_DOWN, KC_ENT, SFT_T(KC_SPC)
+        KC_DOWN, KC_SPC, SFT_T(KC_ENT)
     ),
 /* Keymap 1: Symbol Layer
  *
