@@ -1,17 +1,14 @@
-#include "ergodox.h"
+// Porting from default_osx/keymap.c
+//
+// Netable differences vs. the default firmware for the ErgoDox EZ:
+// 1. The Cmd key is now on the right side, making Cmd+Space easier.
+// 2. The media keys work on OSX (But not on Windows).
+#include QMK_KEYBOARD_H
 #include "debug.h"
 #include "action_layer.h"
-#include "version.h"
 
 #define BASE 0 // default layer
 #define SYMB 1 // symbols & media keys
-
-enum custom_keycodes {
-  PLACEHOLDER = SAFE_RANGE, // can always be here
-  EPRM,
-  VRSN,
-  RGB_SLD
-};
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Keymap 0: Basic layer
@@ -37,7 +34,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 // If it accepts an argument (i.e, is a function), it doesn't need KC_.
 // Otherwise, it needs KC_*
-[BASE] = KEYMAP(  // layer 0 : default
+[BASE] = LAYOUT_ergodox(  // layer 0 : default
         // left hand
         KC_GRV,       KC_1,         KC_2,    KC_3,    KC_4,    KC_5,  KC_TRNS,
         KC_TAB,       KC_Q,         KC_W,    KC_E,    KC_R,    KC_T,  KC_LBRC,
@@ -60,7 +57,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Keymap 1: Symbol Layer
  *
  * ,---------------------------------------------------.           ,--------------------------------------------------.
- * | Version |  F1  |  F2  |  F3  |  F4  |  F5  |      |           |      |  F6  |  F7  |  F8  |  F9  |  F10 |   F11  |
+ * |         |  F1  |  F2  |  F3  |  F4  |  F5  |      |           |      |  F6  |  F7  |  F8  |  F9  |  F10 |   F11  |
  * |---------+------+------+------+------+------+------|           |------+------+------+------+------+------+--------|
  * |         |      | MsUp |      |      |      |      |           |      |      |      |      |      |      |   F12  |
  * |---------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
@@ -68,7 +65,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |---------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
  * |  Reset  | Brt- | Brt+ |Animat|      |      |      |           |      |      | Play | Prev | Next |      |        |
  * `---------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
- *   | EPRM  | Hue- | Hue+ |      |      |                                       |VolUp |VolDn | Mute |      |      |
+ *   |       | Hue- | Hue+ |      |      |                                       |VolUp |VolDn | Mute |      |      |
  *   `-----------------------------------'                                       `----------------------------------'
  *                                        ,-------------.       ,-------------.
  *                                        |      |      |       |      |      |
@@ -79,13 +76,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                 `--------------------'       `--------------------'
  */
 // SYMBOLS
-[SYMB] = KEYMAP(
+[SYMB] = LAYOUT_ergodox(
        // left hand
-       VRSN,    KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_TRNS,
-       KC_TRNS,   KC_TRNS, KC_MS_U, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+       KC_TRNS, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_TRNS,
+       KC_TRNS, KC_TRNS, KC_MS_U, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
        KC_TRNS, KC_MS_L, KC_MS_D, KC_MS_R, KC_BTN1, KC_BTN2,
-       RESET, RGB_VAD, RGB_VAI, RGB_MOD, KC_TRNS, KC_TRNS, KC_TRNS,
-          EPRM, RGB_HUD, RGB_HUI, KC_TRNS, KC_TRNS,
+       RESET,   RGB_VAD, RGB_VAI, RGB_MOD, KC_TRNS, KC_TRNS, KC_TRNS,
+       KC_TRNS, RGB_HUD, RGB_HUI, KC_TRNS, KC_TRNS,
                                                     KC_TRNS, KC_TRNS,
                                                              KC_TRNS,
                                            KC_TRNS, KC_TRNS, KC_TRNS,
@@ -101,54 +98,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 };
 
-const uint16_t PROGMEM fn_actions[] = {
-    [1] = ACTION_LAYER_TAP_TOGGLE(SYMB)                // FN1 - Momentary Layer 1 (Symbols)
-};
-
-const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
-{
-  // MACRODOWN only works in this function
-      switch(id) {
-        case 0:
-        if (record->event.pressed) {
-          SEND_STRING (QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION);
-        }
-        break;
-        case 1:
-        if (record->event.pressed) { // For resetting EEPROM
-          eeconfig_init();
-        }
-        break;
-      }
-    return MACRO_NONE;
-};
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  switch (keycode) {
-    // dynamically generate these.
-    case EPRM:
-      if (record->event.pressed) {
-        eeconfig_init();
-      }
-      return false;
-      break;
-    case VRSN:
-      if (record->event.pressed) {
-        SEND_STRING (QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION);
-      }
-      return false;
-      break;
-    case RGB_SLD:
-      if (record->event.pressed) {
-        #ifdef RGBLIGHT_ENABLE
-          rgblight_mode(1);
-        #endif
-      }
-      return false;
-      break;
-  }
-  return true;
-}
 
 // Runs just one time when the keyboard initializes.
 void matrix_init_user(void) {
@@ -167,11 +116,8 @@ void matrix_scan_user(void) {
     ergodox_right_led_3_off();
     switch (layer) {
       // TODO: Make this relevant to the ErgoDox EZ.
-        case 1:
+        case SYMB:
             ergodox_right_led_1_on();
-            break;
-        case 2:
-            ergodox_right_led_2_on();
             break;
         default:
             // none
