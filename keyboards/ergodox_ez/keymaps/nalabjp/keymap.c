@@ -22,7 +22,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+------+------+------+------+------|  ]   |           |  +   |------+------+------+------+------+--------|
  * | LShift |   Z  |   X  |   C  |   V  |   B  |  }   |           |  =   |   N  |   M  |  , < |  . > |  / ? | Alfred |
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
- *   |      |  L1  | ~L1  | LAlt |Eis/LG|                                       |Kan/RG|  Up  | Down | Left | Right|
+ *   |      |  L1  | ~L1  | LAlt |Eis/LG|                                       |Kan/RG|MsLeft|MsDown| MsUp |MsRght|
  *   `----------------------------------'                                       `----------------------------------'
  *                                      ,--------------.       ,--------------.
  *                                      | Home  | End  |       | Left | Right |
@@ -49,7 +49,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_MINS, KC_Y,   KC_U,            KC_I,    KC_O,    KC_P,    KC_BSLS,
                  KC_H,   KC_J,            KC_K,    KC_L,    KC_SCLN, KC_QUOT,
         KC_EQL,  KC_N,   KC_M,            KC_COMM, KC_DOT,  KC_SLSH, LALT(KC_SPC),
-                         GUI_T(KC_LANG1), KC_UP,   KC_DOWN, KC_LEFT, KC_RGHT,
+                         GUI_T(KC_LANG1), KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R,
         KC_LEFT, KC_RGHT,
         KC_UP,
         KC_DOWN, KC_SPC, SFT_T(KC_ENT)
